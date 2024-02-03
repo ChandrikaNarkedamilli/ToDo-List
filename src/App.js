@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import {AiOutlineDelete}  from 'react-icons/ai'
 import {GiCheckMark} from 'react-icons/gi'
@@ -17,7 +17,16 @@ function App() {
     let updatedTodoArr = [...allTodos];
     updatedTodoArr.push(newTodoObj)
     setAllTodos(updatedTodoArr)
+    localStorage.setItem('todolist',JSON.stringify(updatedTodoArr));
   }
+
+  useEffect(() => {
+    let savedTodo = JSON.parse(localStorage.getItem('todolist'))
+    if(savedTodo){
+      setAllTodos(savedTodo)
+    }
+  },[])
+  
 
   return (
     <div className="App">
